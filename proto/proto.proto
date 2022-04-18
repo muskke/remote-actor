@@ -1,0 +1,39 @@
+syntax = "proto3";
+package proto;
+option go_package = "./;proto";
+import "actor.proto";
+
+service RemoteActor{
+  rpc Call(Ready) returns (Done);
+}
+
+// 准备就绪
+message Ready {
+  actor.PID Sender = 1;
+}
+
+// 等待
+message Wait {
+  actor.PID Sender = 1;
+}
+
+// 已完成
+message Done {
+  actor.PID Sender = 1;
+}
+
+// 通知
+message Notice {
+  // 通知类型
+  string notice_type = 1;
+  // 通知内容
+  string body = 2;
+}
+
+// 事件
+message Event {
+  // 事件类型
+  string event_type = 1;
+  // 事件内容
+  bytes body = 2;
+}
